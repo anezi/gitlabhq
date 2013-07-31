@@ -12,7 +12,7 @@
         = link_to title, '#'
     \/
     %li
-      New file
+      = link_to "New", project_edit_tree_path(@project, @id), class: "btn btn-tiny", disabled: !allowed_tree_edit?
 
 %div#tree-content-holder.tree-content-holder
   %table#tree-slider{class: "table_#{@hex_path} tree-table" }
