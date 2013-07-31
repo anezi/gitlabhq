@@ -21,7 +21,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   end
 
   def secure_url
-    "/files/#{model.class.to_s.underscore}/#{model.id}/#{file.filename}"
+    "files/#{model.class.to_s.underscore}/#{model.id}/#{file.filename}"
   end
 
   def file_storage?
