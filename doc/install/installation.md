@@ -156,7 +156,7 @@ To setup the MySQL/PostgreSQL database and dependencies please see [`doc/install
     sudo -u git -H git checkout 5-3-stable
 
 **Note:**
-You can change `5-3-stable` to `master` if you want the *bleeding edge* version, but do so with caution!
+You can change `5-3-stable` to `master` if you want the *bleeding edge* version, but never install master on a production server!
 
 ## Configure it
 
@@ -364,9 +364,9 @@ These steps are fairly general and you will need to figure out the exact details
 * Stop GitLab
 		`sudo service gitlab stop`
 
-* Add provider specific configuration options to your `config/gitlab.yml` (you can use the [auth providers section of the example config](https://github.com/gitlabhq/gitlabhq/blob/5-3-stable/config/gitlab.yml.example#L53) as a reference)
+* Add provider specific configuration options to your `config/gitlab.yml` (you can use the [auth providers section of the example config](https://github.com/gitlabhq/gitlabhq/blob/master/config/gitlab.yml.example) as a reference)
 
-* Add the gem to your [Gemfile](https://github.com/gitlabhq/gitlabhq/blob/5-3-stable/Gemfile#L18)
+* Add the gem to your [Gemfile](https://github.com/gitlabhq/gitlabhq/blob/master/Gemfile)
                 `gem "omniauth-your-auth-provider"` 
 * If you're using MySQL, install the new Omniauth provider gem by running the following command:
 		`sudo -u git -H bundle install --without development test postgres --path vendor/bundle --no-deployment`
