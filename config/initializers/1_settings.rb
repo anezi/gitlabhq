@@ -52,7 +52,6 @@ Settings['issues_tracker']  ||= {}
 Settings['gitlab'] ||= Settingslogic.new({})
 Settings.gitlab['default_projects_limit'] ||= 10
 Settings.gitlab['default_can_create_group'] = true if Settings.gitlab['default_can_create_group'].nil?
-Settings.gitlab['default_can_create_team']  = true if Settings.gitlab['default_can_create_team'].nil?
 Settings.gitlab['host']       ||= 'localhost'
 Settings.gitlab['site_title'] ||= 'GitLab'
 Settings.gitlab['https']        = false if Settings.gitlab['https'].nil?
