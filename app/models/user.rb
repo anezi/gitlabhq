@@ -126,6 +126,17 @@ class User < ActiveRecord::Base
     after_transition any => :blocked do |user, transition|
       # Remove user from all projects and
       user.users_projects.find_each do |membership|
+        # skip owned resources
+        next if membership.project.owner == user
+
+        return false unless membership.destroy
+      end
+
+      # Remove user from all groups
+      user.users_groups.find_each do |membership|
+        # skip owned resources
+        next if membership.group.owners.include?(user)
+
         return false unless membership.destroy
       end
     end
@@ -363,6 +374,12 @@ class User < ActiveRecord::Base
     %w(name username skype linkedin twitter bio).each do |attr|
       value = self.send(attr)
       self.send("#{attr}=", Sanitize.clean(value)) if value.present?
+    end
+  end
+
+  def solo_owned_groups
+    @solo_owned_groups ||= owned_groups.select do |group|
+      group.owners == [self]
     end
   end
 end
