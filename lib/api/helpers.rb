@@ -64,6 +64,10 @@ module API
       end
     end
 
+    def authorize_admin_project
+      authorize! :admin_project, user_project
+    end
+
     def can?(object, action, subject)
       abilities.allowed?(object, action, subject)
     end
@@ -82,7 +86,7 @@ module API
     def attributes_for_keys(keys)
       attrs = {}
       keys.each do |key|
-        attrs[key] = params[key] if params[key].present?
+        attrs[key] = params[key] if params[key].present? or (params.has_key?(key) and params[key] == false)
       end
       attrs
     end
