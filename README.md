@@ -34,14 +34,6 @@
 
 * [Installation guide for a production server](doc/install/installation.md)
 
-
-#### Official development installation
-
-If you want to contribute, please first read our [Contributing Guidelines](https://github.com/gitlabhq/gitlabhq/blob/master/CONTRIBUTING.md) and then we suggest you to use the Vagrant virtual machine project to get an environment working with all dependencies.
-
-* [Vagrant virtual machine for development](https://github.com/gitlabhq/gitlab-vagrant-vm)
-
-
 #### Unofficial production installations
 
 * [GitLab recipes](https://github.com/gitlabhq/gitlab-recipes) repository with unofficial guides for using GitLab with different software (operating systems, webservers, etc.) than the official version.
