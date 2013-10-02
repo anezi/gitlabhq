@@ -23,7 +23,7 @@ gem 'omniauth-github'
 
 # Extracting information from a git repository
 # Provide access to Gitlab::Git library
-gem "gitlab_git", '2.3.1'
+gem "gitlab_git", "~> 3.0.0.beta1"
 
 # Ruby/Rack Git Smart-HTTP Server Handler
 gem 'gitlab-grack', '~> 1.0.1', require: 'grack'
@@ -120,6 +120,9 @@ gem "underscore-rails", "~> 1.4.4"
 # Sanitize user input
 gem "sanitize"
 
+# Protect against bruteforcing
+gem "rack-attack"
+
 group :assets do
   gem "sass-rails"
   gem "coffee-rails"
@@ -142,10 +145,11 @@ group :assets do
 end
 
 group :development do
-  gem "annotate", git: "https://github.com/ctran/annotate_models.git"
+  gem "annotate", "~> 2.6.0.beta2"
   gem "letter_opener"
   gem 'quiet_assets', '~> 1.0.1'
   gem 'rack-mini-profiler'
+
   # Better errors handler
   gem 'better_errors'
   gem 'binding_of_caller'

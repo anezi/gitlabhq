@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/ctran/annotate_models.git
-  revision: 18a4e2eb77c8f3ef695b563e4a7ca45dfede819b
-  specs:
-    annotate (2.6.0.beta2)
-      activerecord (>= 2.3.0)
-      rake (>= 0.8.7)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -39,6 +31,9 @@ GEM
     acts-as-taggable-on (2.4.1)
       rails (>= 3, < 5)
     addressable (2.3.4)
+    annotate (2.6.0.beta2)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
     arel (3.0.2)
     asciidoctor (0.1.3)
     awesome_print (1.2.0)
@@ -179,7 +174,7 @@ GEM
     gitlab-pygments.rb (0.3.2)
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
-    gitlab_git (2.3.1)
+    gitlab_git (3.0.0.beta1)
       activesupport (~> 3.2.13)
       github-linguist (~> 2.3.4)
       gitlab-grit (~> 2.6.0)
@@ -334,6 +329,8 @@ GEM
     rack (1.4.5)
     rack-accept (0.4.5)
       rack (>= 0.4)
+    rack-attack (2.2.1)
+      rack
     rack-cache (1.2)
       rack (>= 0.4)
     rack-mini-profiler (0.1.31)
@@ -549,7 +546,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
-  annotate!
+  annotate (~> 2.6.0.beta2)
   asciidoctor
   awesome_print
   better_errors
@@ -577,7 +574,7 @@ DEPENDENCIES
   gitlab-gollum-lib (~> 1.0.1)
   gitlab-grack (~> 1.0.1)
   gitlab-pygments.rb (~> 0.3.2)
-  gitlab_git (= 2.3.1)
+  gitlab_git (~> 3.0.0.beta1)
   gitlab_meta (= 6.0)
   gitlab_omniauth-ldap (= 1.0.3)
   gon
@@ -608,6 +605,7 @@ DEPENDENCIES
   poltergeist (~> 1.4.1)
   pry
   quiet_assets (~> 1.0.1)
+  rack-attack
   rack-mini-profiler
   rails (= 3.2.13)
   rails-dev-tweaks
