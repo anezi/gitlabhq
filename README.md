@@ -30,20 +30,7 @@
 
 ### Installation
 
-#### Official production installation
-
 * [Installation guide for a production server](doc/install/installation.md)
-
-#### Unofficial production installations
-
-* [GitLab recipes](https://github.com/gitlabhq/gitlab-recipes) repository with unofficial guides for using GitLab with different software (operating systems, webservers, etc.) than the official version.
-
-* [Installation guides](https://github.com/gitlabhq/gitlab-public-wiki/wiki/Unofficial-Installation-Guides) public wiki with unofficial guides to install GitLab on different operating systems.
-
-* [BitNami one-click installers](http://bitnami.com/stack/gitlab)
-
-* [TurnKey Linux virtual appliance](http://www.turnkeylinux.org/gitlab)
-
 
 ### New versions and upgrading
 
