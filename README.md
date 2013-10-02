@@ -15,9 +15,7 @@
 ### Resources
 
 * GitLab.org community site: [Homepage](http://gitlab.org) | [Screenshots](http://gitlab.org/screenshots/) | [Blog](http://blog.gitlab.org/) | [Demo](http://demo.gitlabhq.com/users/sign_in)
-
 * GitLab.com commercial services: [Homepage](http://www.gitlab.com/) | [Subscription](http://www.gitlab.com/subscription/) | [Consultancy](http://www.gitlab.com/consultancy/) | [GitLab Cloud](http://www.gitlab.com/cloud/) | [Blog](http://blog.gitlab.com/)
-
 * GitLab CI: [Readme](https://github.com/gitlabhq/gitlab-ci/blob/master/README.md) of the GitLab open-source continuous integration server
 
 ### Requirements
