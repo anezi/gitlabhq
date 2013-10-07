@@ -57,6 +57,19 @@ Parameters:
 + `project_id` (required) - The ID of a project
 
 
+## Remove group
+
+Removes group with all projects inside.
+
+```
+DELETE /groups/:id
+```
+
+Parameters:
+
++ `id` (required) - The ID of a user group
+
+
 ## Group members
 
 
@@ -83,22 +96,22 @@ GET /groups/:id/members
 ```json
 [
   {
-    id: 1,
-    username: "raymond_smith",
-    email: "ray@smith.org",
-    name: "Raymond Smith",
-    state: "active",
-    created_at: "2012-10-22T14:13:35Z",
-    access_level: 30
+    "id": 1,
+    "username": "raymond_smith",
+    "email": "ray@smith.org",
+    "name": "Raymond Smith",
+    "state": "active",
+    "created_at": "2012-10-22T14:13:35Z",
+    "access_level": 30
   },
   {
-    id: 2,
-    username: "john_doe",
-    email: "joh@doe.org",
-    name: "John Doe",
-    state: "active",
-    created_at: "2012-10-22T14:13:35Z",
-    access_level: 30
+    "id": 2,
+    "username": "john_doe",
+    "email": "joh@doe.org",
+    "name": "John Doe",
+    "state": "active",
+    "created_at": "2012-10-22T14:13:35Z",
+    "access_level": 30
   }
 ]
 ```
