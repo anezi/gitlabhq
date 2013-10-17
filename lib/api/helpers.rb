@@ -11,12 +11,8 @@ module API
       # If the sudo is the current user do nothing
       if (identifier && !(@current_user.id == identifier || @current_user.username == identifier))
         render_api_error!('403 Forbidden: Must be admin to use sudo', 403) unless @current_user.is_admin?
-        begin
-          @current_user = User.by_username_or_id(identifier)
-        rescue => ex
-          not_found!("No user id or username for: #{identifier}")
-        end
-        not_found!("No user id or username for: #{identifier}") if current_user.nil?
+        @current_user = User.by_username_or_id(identifier)
+        not_found!("No user id or username for: #{identifier}") if @current_user.nil?
       end
       @current_user
     end
@@ -28,6 +24,15 @@ module API
         identifier.to_i
       else
         identifier
+      end
+    end
+
+    def set_current_user_for_thread
+      Thread.current[:current_user] = current_user
+      begin
+        yield
+      ensure
+        Thread.current[:current_user] = nil
       end
     end
 
