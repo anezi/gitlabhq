@@ -55,6 +55,7 @@ Settings.gitlab['default_can_create_group'] = true if Settings.gitlab['default_c
 Settings.gitlab['default_theme'] = Gitlab::Theme::MARS if Settings.gitlab['default_theme'].nil?
 Settings.gitlab['host']       ||= 'localhost'
 Settings.gitlab['site_title'] ||= 'GitLab'
+Settings.gitlab['site_desc']  ||= 'GitLab is open source software to collaborate on code.'
 Settings.gitlab['https']        = false if Settings.gitlab['https'].nil?
 Settings.gitlab['port']       ||= Settings.gitlab.https ? 443 : 80
 Settings.gitlab['relative_url_root'] ||= ENV['RAILS_RELATIVE_URL_ROOT'] || ''
