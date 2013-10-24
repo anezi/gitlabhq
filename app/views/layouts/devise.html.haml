@@ -9,7 +9,7 @@
           %h1
             = gitlab_config.site_title
           %p.light
-            GitLab is open source software to collaborate on code.
+            = gitlab_config.site_desc
             %br
             #{link_to "Sign in", new_user_session_path} or browse for #{link_to "public projects", public_projects_path}.
         %hr
