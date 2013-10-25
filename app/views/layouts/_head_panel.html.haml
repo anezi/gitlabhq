@@ -5,7 +5,7 @@
         %span.separator
         = link_to root_path, class: "home has_bottom_tooltip", title: "Dashboard" do
           %h1
-            = Gitlab.config.gitlab.site_title
+            = gitlab_config.site_title
         %span.separator
       %h1.project_name= title
       %ul.nav
