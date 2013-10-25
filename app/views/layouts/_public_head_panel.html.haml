@@ -4,7 +4,8 @@
       %div.app_logo
         %span.separator
         = link_to public_root_path, class: "home" do
-          %h1 GITLAB
+          %h1
+            = gitlab_config.site_title
         %span.separator
       %h1.project_name
         - if @project
