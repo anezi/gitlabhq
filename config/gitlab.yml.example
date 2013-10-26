@@ -17,6 +17,9 @@ production: &base
     # Site Title
     site_title: "GitLab"
     
+    # Site description
+    site_desc: "GitLab is open source software to collaborate on code."
+    
     ## Web server settings
     host: localhost
     port: 80
