@@ -1,3 +1,17 @@
+v 6.3.0
+  - API for adding gitlab-ci service
+  - Init script now waits for pids to appear after (re)starting before reporting status (Rovanion Luckey)
+  - Restyle project home page
+  - Grammar fixes
+  - Show branches list (which branches contains commit) on commit page (Andrew Kumanyaev)
+  - Security improvements
+  - Added support for GitLab CI 4.0
+  - Fixed issue with 500 error when group did not exist
+  - Ability to leave project
+  - You can create file in repo using UI
+  - API: dropped default_branch attribute from project during creation
+  - Project default_branch is not stored in db any more. It takes from repo now.
+
 v 6.2.0
   - Public project pages are now visible to everyone (files, issues, wik, etc.)
     THIS MEANS YOUR ISSUES AND WIKI FOR PUBLIC PROJECTS ARE PUBLICLY VISIBLE AFTER THE UPGRADE
@@ -15,7 +29,7 @@ v 6.2.0
   - Extended User API to expose admin and can_create_group for user creation/updating (Boyan Tabakov)
   - API: Remove group
   - API: Remove project
-  - Avatar upload on profile page with a maximum of 200KB (Steven Thonus)
+  - Avatar upload on profile page with a maximum of 100KB (Steven Thonus)
   - Store the sessions in Redis instead of the cookie store
   - Fixed relative links in markdown
   - User must confirm his email if signup enabled
