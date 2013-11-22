@@ -124,7 +124,7 @@
                   %span Namespace
                 .controls
                   .control-group
-                    = f.select :namespace_id, namespaces_options(@project.namespace_id), {prompt: 'Choose a project namespace'}, {class: 'chosen'}
+                    = f.select :namespace_id, namespaces_options(@project.namespace_id), { prompt: 'Choose a project namespace' }, { class: 'chosen' }
                   %ul
                     %li Be careful. Changing the project's namespace can have unintended side effects.
                     %li You can only transfer the project to namespaces you manage.
@@ -144,7 +144,9 @@
                 %span Path
               .controls
                 .control-group
-                  = f.text_field :path
+                  .input-append
+                    = f.text_field :path
+                    %span.add-on .git
                 %ul
                   %li Be careful. Renaming a project's repository can have unintended side effects.
                   %li You will need to update your local repositories to point to the new location.

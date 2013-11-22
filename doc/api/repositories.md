@@ -379,8 +379,32 @@ POST /projects/:id/repository/files
 
 Parameters:
 
-+ `file_name` (required) - The name of new file. Ex. class.rb
-+ `file_path` (optiona) - The path to new file. Ex. lib/
++ `file_path` (optional) - Full path to new file. Ex. lib/class.rb
 + `branch_name` (required) - The name of branch
 + `content` (required) - File content
++ `commit_message` (required) - Commit message
+
+## Update existing file in repository
+
+```
+PUT /projects/:id/repository/files
+```
+
+Parameters:
+
++ `file_path` (required) - Full path to file. Ex. lib/class.rb
++ `branch_name` (required) - The name of branch
++ `content` (required) - New file content
++ `commit_message` (required) - Commit message
+
+## Delete existing file in repository
+
+```
+DELETE /projects/:id/repository/files
+```
+
+Parameters:
+
++ `file_path` (required) - Full path to file. Ex. lib/class.rb
++ `branch_name` (required) - The name of branch
 + `commit_message` (required) - Commit message

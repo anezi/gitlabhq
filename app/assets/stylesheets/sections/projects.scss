@@ -16,7 +16,7 @@
 
 .project-home-panel {
   border-bottom: 1px solid #DDD;
-  padding-bottom: 30px;
+  padding-bottom: 25px;
   margin-bottom: 30px;
 
   .project-home-title {
@@ -164,5 +164,63 @@ ul.nav.nav-projects-tabs {
 
   a {
     color: #777;
+  }
+}
+
+.project-side {
+  .btn-block {
+    background-image: none;
+    background-color: #F1f1f1;
+    border-color: #EEE;
+    &:hover {
+      background-color: #eee;
+      border-color: #DDD;
+    }
+  }
+  .project-fork-icon {
+    float: left;
+    font-size: 26px;
+    margin-right: 10px;
+    line-height: 1.5;
+  }
+}
+
+.transfer-project .chosen-container {
+  min-width: 200px;
+}
+
+/** Branch/tag selector **/
+.project-refs-form {
+  margin: 0;
+  span {
+    background:none !important;
+    position:static !important;
+    width:auto !important;
+    height:auto !important;
+  }
+}
+.project-refs-select {
+  width: 120px;
+}
+
+.project-refs-form .chosen-container {
+  position: relative;
+  top: 0;
+  left: 0;
+  margin-right: 10px;
+
+  .chosen-single span {
+    font-weight: bold;
+    color: #555;
+  }
+
+  &.chosen-container-active {
+    .chosen-drop {
+      min-width: 400px;
+    }
+
+    .chosen-results {
+      max-height: 400px;
+    }
   }
 }

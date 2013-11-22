@@ -69,7 +69,8 @@ module TestEnv
       remove_repository: true,
       update_repository_head: true,
       add_key: true,
-      remove_key: true
+      remove_key: true,
+      version: '6.3.0'
     )
 
     Gitlab::Satellite::Satellite.any_instance.stub(
@@ -95,6 +96,15 @@ module TestEnv
     setup_stubs
     # Clean any .wiki.git that may have been created
     FileUtils.rm_rf File.join(testing_path(), "#{name}.wiki.git")
+  end
+
+  def reset_satellite_dir
+    setup_stubs
+    FileUtils.cd(seed_satellite_path) do
+      `git reset --hard --quiet`
+      `git clean -fx`
+      `git checkout --quiet origin/master`
+    end
   end
 
   # Create a repo and it's satellite

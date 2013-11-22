@@ -1,5 +1,9 @@
 ## GitLab: self hosted Git management software
 
+![logo](https://raw.github.com/gitlabhq/gitlabhq/master/public/gitlab_logo.png)
+
+![animated-screenshots](https://gist.github.com/fnkr/2f9badd56bfe0ed04ee7/raw/4f48806fbae97f556c2f78d8c2d299c04500cb0d/compiled.gif)
+
 ### GitLab allows you to
  * keep your code secure on your own server
  * manage repositories, users and access permissions
@@ -12,10 +16,22 @@
 * completely free and open source (MIT license)
 * used by more than 25.000 organizations to keep their code secure
 
+### Code status
+
+* [![build status](http://ci.gitlab.org/projects/1/status.png?ref=master)](http://ci.gitlab.org/projects/1?ref=master) on ci.gitlab.org (master branch)
+
+* [![Code Climate](https://codeclimate.com/github/gitlabhq/gitlabhq.png)](https://codeclimate.com/github/gitlabhq/gitlabhq)
+
+* [![Dependency Status](https://gemnasium.com/gitlabhq/gitlabhq.png)](https://gemnasium.com/gitlabhq/gitlabhq) this button can be yellow (small updates are available) but must not be red (a security fix or an important update is available), gems are updated in major releases of GitLab.
+
+* [![Coverage Status](https://coveralls.io/repos/gitlabhq/gitlabhq/badge.png?branch=master)](https://coveralls.io/r/gitlabhq/gitlabhq)
+
 ### Resources
 
 * GitLab.org community site: [Homepage](http://gitlab.org) | [Screenshots](http://gitlab.org/screenshots/) | [Blog](http://blog.gitlab.org/) | [Demo](http://demo.gitlabhq.com/users/sign_in)
+
 * GitLab.com commercial services: [Homepage](http://www.gitlab.com/) | [Subscription](http://www.gitlab.com/subscription/) | [Consultancy](http://www.gitlab.com/consultancy/) | [GitLab Cloud](http://www.gitlab.com/cloud/) | [Blog](http://blog.gitlab.com/)
+
 * GitLab CI: [Readme](https://github.com/gitlabhq/gitlab-ci/blob/master/README.md) of the GitLab open-source continuous integration server
 
 ### Requirements
@@ -30,7 +46,29 @@
 
 ### Installation
 
+#### Official production installation
+
 * [Installation guide for a production server](doc/install/installation.md)
+
+
+#### Official development installation
+
+If you want to contribute, please first read our [Contributing Guidelines](https://github.com/gitlabhq/gitlabhq/blob/master/CONTRIBUTING.md) and then we suggest you to use the Vagrant virtual machine project to get an environment working with all dependencies.
+
+* [Vagrant virtual machine for development](https://github.com/gitlabhq/gitlab-vagrant-vm)
+
+
+#### Unofficial production installations
+
+* [GitLab recipes](https://github.com/gitlabhq/gitlab-recipes) repository with unofficial guides for using GitLab with different software (operating systems, webservers, etc.) than the official version.
+
+* [Installation guides](https://github.com/gitlabhq/gitlab-public-wiki/wiki/Unofficial-Installation-Guides) public wiki with unofficial guides to install GitLab on different operating systems.
+
+
+* [Digital Ocean 1-Click Application Install](https://www.digitalocean.com/) Have a new server up in 55 seconds. Digital Ocean uses SSD disks which is great for an IO intensive app as GitLab. Look for GitLab under 'Select Image' => 'Applications' when creating a droplet.
+
+* [BitNami one-click installers](http://bitnami.com/stack/gitlab) Get an image with GitLab and GitLab CI preinstalled for Amazon Web Services, Azure, VMware or your local server.
+
 
 ### New versions and upgrading
 
