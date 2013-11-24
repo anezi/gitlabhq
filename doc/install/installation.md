@@ -135,6 +135,8 @@ Create a `git` user for Gitlab:
 
     sudo adduser --disabled-login --gecos 'GitLab' git
 
+Note: To test for having a system user: sudo adduser --group --shell /bin/bash --disabled-login --system --gecos 'GitLab' git
+
 
 # 4. GitLab shell
 
