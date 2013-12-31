@@ -12,5 +12,7 @@
             = gitlab_config.site_desc
             %br
             #{link_to "Sign in", new_user_session_path} or browse for #{link_to "public projects", public_projects_path}.
-        %hr
+    %hr
+    .container
+      .content
         = yield
