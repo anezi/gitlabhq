@@ -105,8 +105,10 @@ module GitlabMarkdownHelper
 
   def rebuild_path(path_with_namespace, path, requested_path, ref)
     file_path = relative_file_path(path, requested_path)
+    relative_url_root = Gitlab.config.gitlab.relative_url_root
+    relative_url_root.slice!(0) # remove the first character which is /
     [
-      Gitlab.config.gitlab.relative_url_root.slice!(0),
+      relative_url_root,
       path_with_namespace,
       path_with_ref(file_path, ref),
       file_path
