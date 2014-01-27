@@ -106,6 +106,7 @@ module GitlabMarkdownHelper
   def rebuild_path(path_with_namespace, path, requested_path, ref)
     file_path = relative_file_path(path, requested_path)
     [
+      Gitlab.config.gitlab.relative_url_root,
       path_with_namespace,
       path_with_ref(file_path, ref),
       file_path
