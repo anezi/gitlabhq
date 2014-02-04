@@ -8,6 +8,7 @@ resque_url = if File.exists?(config_file)
              end
 
 Sidekiq.configure_server do |config|
+  config.options[:concurrency] = 4
   config.redis = {
     url: resque_url,
     namespace: 'resque:gitlab'
