@@ -5,7 +5,7 @@ describe Notify do
   include EmailSpec::Matchers
 
   let(:recipient) { create(:user, email: 'recipient@example.com') }
-  let(:project) { create(:project_with_code) }
+  let(:project) { create(:project) }
 
   shared_examples 'a multiple recipients email' do
     it 'is sent to the given recipient' do
@@ -87,6 +87,28 @@ describe Notify do
 
     it 'includes a link to ssh keys page' do
       should have_body_text /#{profile_keys_path}/
+    end
+  end
+
+  describe 'user added email' do
+    let(:email) { create(:email) }
+
+    subject { Notify.new_email_email(email.id) }
+
+    it 'is sent to the new user' do
+      should deliver_to email.user.email
+    end
+
+    it 'has the correct subject' do
+      should have_subject /^gitlab \| Email was added to your account$/i
+    end
+
+    it 'contains the new email address' do
+      should have_body_text /#{email.email}/
+    end
+
+    it 'includes a link to emails page' do
+      should have_body_text /#{profile_emails_path}/
     end
   end
 

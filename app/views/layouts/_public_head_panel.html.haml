@@ -7,11 +7,7 @@
           %h1
             = gitlab_config.site_title
         %span.separator
-      %h1.project_name
-        - if @project
-          = project_title(@project)
-        - else
-          Public Projects
+      %h1.title= title
 
       .pull-right
         = link_to "Sign in", new_session_path(:user), class: 'btn btn-sign-in btn-new'
@@ -21,4 +17,3 @@
           %a
             %div.hide.turbolink-spinner
               %i.icon-refresh.icon-spin
-              Loading...

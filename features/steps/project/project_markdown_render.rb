@@ -1,10 +1,11 @@
 class Spinach::Features::ProjectMarkdownRender < Spinach::FeatureSteps
   include SharedAuthentication
   include SharedPaths
+  include SharedMarkdown
 
   And 'I own project "Delta"' do
-    @project = Project.find_by_name "Delta"
-    @project ||= create(:project_with_code, name: "Delta", namespace: @user.namespace)
+    @project = Project.find_by(name: "Delta")
+    @project ||= create(:project, name: "Delta", namespace: @user.namespace)
     @project.team << [@user, :master]
   end
 
@@ -21,6 +22,8 @@ class Spinach::Features::ProjectMarkdownRender < Spinach::FeatureSteps
     page.should have_link "GitLab API website"
     page.should have_link "Rake tasks"
     page.should have_link "backup and restore procedure"
+    page.should have_link "GitLab API doc directory"
+    page.should have_link "Maintenance"
   end
 
   And 'I click on Gitlab API in README' do
@@ -40,6 +43,25 @@ class Spinach::Features::ProjectMarkdownRender < Spinach::FeatureSteps
     current_path.should == project_tree_path(@project, "master/doc/raketasks")
     page.should have_content "backup_restore.md"
     page.should have_content "maintenance.md"
+  end
+
+  And 'I click on GitLab API doc directory in README' do
+    click_link "GitLab API doc directory"
+  end
+
+  Then 'I should see correct doc/api directory rendered' do
+    current_path.should == project_tree_path(@project, "master/doc/api/")
+    page.should have_content "README.md"
+    page.should have_content "users.md"
+  end
+
+  And 'I click on Maintenance in README' do
+    click_link "Maintenance"
+  end
+
+  Then 'I should see correct maintenance file rendered' do
+    current_path.should == project_blob_path(@project, "master/doc/raketasks/maintenance.md")
+    page.should have_content "bundle exec rake gitlab:env:info RAILS_ENV=production"
   end
 
   And 'I navigate to the doc/api/README' do
@@ -118,6 +140,16 @@ class Spinach::Features::ProjectMarkdownRender < Spinach::FeatureSteps
     page.should have_content "test GitLab API doc Rake tasks"
   end
 
+  step 'I add a header to the wiki page' do
+    fill_in "wiki[content]", with: "# Wiki header\n"
+    fill_in "wiki[message]", with: "Add header to wiki"
+    click_button "Create page"
+  end
+
+  step 'Wiki header should have correct id and link' do
+    header_should_have_correct_id_and_link(1, 'Wiki header', 'wiki-header')
+  end
+
   And 'I click on test link' do
     click_link "test"
   end
@@ -151,18 +183,6 @@ class Spinach::Features::ProjectMarkdownRender < Spinach::FeatureSteps
     page.should have_content "maintenance.md"
   end
 
-  Given 'I visit to the help page' do
-    visit help_path
-  end
-
-  And 'I select a page with markdown' do
-    click_link "Rake Tasks"
-  end
-
-  Then 'I should see a help page with markdown' do
-    page.should have_content "GitLab provides some specific rake tasks to enable special features or perform maintenance tasks"
-  end
-
   Given 'I go directory which contains README file' do
     visit project_tree_path(@project, "master/doc/api")
     current_path.should == project_tree_path(@project, "master/doc/api")
@@ -175,5 +195,13 @@ class Spinach::Features::ProjectMarkdownRender < Spinach::FeatureSteps
   Then 'I should see the correct markdown' do
     current_path.should == project_blob_path(@project, "master/doc/api/users.md")
     page.should have_content "List users"
+  end
+
+  step 'Header "Application details" should have correct id and link' do
+    header_should_have_correct_id_and_link(2, 'Application details', 'application-details')
+  end
+
+  step 'Header "GitLab API" should have correct id and link' do
+    header_should_have_correct_id_and_link(1, 'GitLab API', 'gitlab-api')
   end
 end

@@ -3,6 +3,7 @@ class ProjectMergeRequests < Spinach::FeatureSteps
   include SharedProject
   include SharedNote
   include SharedPaths
+  include SharedMarkdown
 
   step 'I click link "New Merge Request"' do
     click_link "New Merge Request"
@@ -27,7 +28,7 @@ class ProjectMergeRequests < Spinach::FeatureSteps
   end
 
   step 'I should see closed merge request "Bug NS-04"' do
-    merge_request = MergeRequest.find_by_title!("Bug NS-04")
+    merge_request = MergeRequest.find_by!(title: "Bug NS-04")
     merge_request.closed?.should be_true
     page.should have_content "Closed by"
   end
@@ -54,25 +55,15 @@ class ProjectMergeRequests < Spinach::FeatureSteps
   end
 
   step 'I click link "Close"' do
-    click_link "Close"
+    within '.page-title' do
+      click_link "Close"
+    end
   end
 
   step 'I submit new merge request "Wiki Feature"' do
     fill_in "merge_request_title", with: "Wiki Feature"
-
-    # this must come first, so that the target branch is set
-    # by the time the "select" for "notes_refactoring" is executed
-    select project.path_with_namespace, from: "merge_request_target_project_id"
     select "master", from: "merge_request_source_branch"
-
-    find(:select, "merge_request_target_project_id", {}).value.should == project.id.to_s
-    find(:select, "merge_request_source_project_id", {}).value.should == project.id.to_s
-
-    # using "notes_refactoring" because "Bug NS-04" uses master/stable,
-    # this will fail merge_request validation if the branches are the same
-    find(:select, "merge_request_target_branch", {}).find(:option, "notes_refactoring", {}).value.should == "notes_refactoring"
     select "notes_refactoring", from: "merge_request_target_branch"
-
     click_button "Submit merge request"
   end
 
@@ -81,7 +72,11 @@ class ProjectMergeRequests < Spinach::FeatureSteps
            title: "Bug NS-04",
            source_project: project,
            target_project: project,
-           author: project.users.first)
+           source_branch: 'stable',
+           target_branch: 'master',
+           author: project.users.first,
+           description: "# Description header"
+          )
   end
 
   step 'project "Shop" have "Bug NS-05" open merge request with diffs inside' do
@@ -109,33 +104,29 @@ class ProjectMergeRequests < Spinach::FeatureSteps
   end
 
   step 'I click on the first commit in the merge request' do
-    click_link merge_request.commits.first.short_id(8)
+    within '.first-commits' do
+      click_link merge_request.commits.first.short_id(8)
+    end
   end
 
   step 'I leave a comment on the diff page' do
     init_diff_note
+    leave_comment "One comment to rule them all"
+  end
 
-    within('.js-discussion-note-form') do
-      fill_in "note_note", with: "One comment to rule them all"
-      click_button "Add Comment"
-    end
-
-    within ".note-text" do
-      page.should have_content "One comment to rule them all"
-    end
+  step 'I leave a comment on the diff page in commit' do
+    find('a[data-line-code="4735dfc552ad7bf15ca468adc3cad9d05b624490_185_185"]').click
+    leave_comment "One comment to rule them all"
   end
 
   step 'I leave a comment like "Line is wrong" on line 185 of the first file' do
     init_diff_note
+    leave_comment "Line is wrong"
+  end
 
-    within(".js-discussion-note-form") do
-      fill_in "note_note", with: "Line is wrong"
-      click_button "Add Comment"
-    end
-
-    within ".note-text" do
-      page.should have_content "Line is wrong"
-    end
+  step 'I leave a comment like "Line is wrong" on line 185 of the first file in commit' do
+    find('a[data-line-code="4735dfc552ad7bf15ca468adc3cad9d05b624490_185_185"]').click
+    leave_comment "Line is wrong"
   end
 
   step 'I should see a discussion has started on line 185' do
@@ -144,14 +135,14 @@ class ProjectMergeRequests < Spinach::FeatureSteps
     page.should have_content "Line is wrong"
   end
 
-  step 'I should see a discussion has started on commit bcf03b5de6c:L185' do
+  step 'I should see a discussion has started on commit b1e6a9dbf1:L185' do
     page.should have_content "#{current_user.name} started a discussion on commit"
     page.should have_content "app/assets/stylesheets/tree.scss:L185"
     page.should have_content "Line is wrong"
   end
 
-  step 'I should see a discussion has started on commit bcf03b5de6c' do
-    page.should have_content "#{current_user.name} started a discussion on commit bcf03b5de6c"
+  step 'I should see a discussion has started on commit b1e6a9dbf1' do
+    page.should have_content "#{current_user.name} started a discussion on commit"
     page.should have_content "One comment to rule them all"
     page.should have_content "app/assets/stylesheets/tree.scss:L185"
   end
@@ -174,20 +165,31 @@ class ProjectMergeRequests < Spinach::FeatureSteps
   end
 
   step 'I should see merged request' do
-    within '.page-title' do
+    within '.issue-box' do
       page.should have_content "Merged"
     end
   end
 
   def project
-    @project ||= Project.find_by_name!("Shop")
+    @project ||= Project.find_by!(name: "Shop")
   end
 
   def merge_request
-    @merge_request ||= MergeRequest.find_by_title!("Bug NS-05")
+    @merge_request ||= MergeRequest.find_by!(title: "Bug NS-05")
   end
 
   def init_diff_note
-    find('a[data-line-code="4735dfc552ad7bf15ca468adc3cad9d05b624490_185_185"]').click
+    find('a[data-line-code="4735dfc552ad7bf15ca468adc3cad9d05b624490_172_185"]').click
+  end
+
+  def leave_comment(message)
+    within(".js-discussion-note-form") do
+      fill_in "note_note", with: message
+      click_button "Add Comment"
+    end
+
+    within ".note-text" do
+      page.should have_content message
+    end
   end
 end

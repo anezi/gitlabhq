@@ -17,6 +17,13 @@ class NotificationService
     end
   end
 
+  # Always notify user about email added to profile
+  def new_email(email)
+    if email.user
+      mailer.new_email_email(email.id)
+    end
+  end
+
   # When create an issue we should send next emails:
   #
   #  * issue assignee if their notification level is not Disabled
@@ -195,10 +202,10 @@ class NotificationService
     users.reject do |user|
       next user.notification.disabled? unless project
 
-      tm = project.users_projects.find_by_user_id(user.id)
+      tm = project.users_projects.find_by(user_id: user.id)
 
       if !tm && project.group
-        tm = project.group.users_groups.find_by_user_id(user.id)
+        tm = project.group.users_groups.find_by(user_id: user.id)
       end
 
       # reject users who globally disabled notification and has no membership

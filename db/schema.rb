@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140116231608) do
+ActiveRecord::Schema.define(version: 20140209025651) do
 
   create_table "broadcast_messages", force: true do |t|
     t.text     "message",    null: false
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 20140116231608) do
   end
 
   add_index "deploy_keys_projects", ["project_id"], name: "index_deploy_keys_projects_on_project_id", using: :btree
+
+  create_table "emails", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.string   "email",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "emails", ["email"], name: "index_emails_on_email", unique: true, using: :btree
+  add_index "emails", ["user_id"], name: "index_emails_on_user_id", using: :btree
 
   create_table "events", force: true do |t|
     t.string   "target_type"
@@ -95,21 +105,28 @@ ActiveRecord::Schema.define(version: 20140116231608) do
 
   add_index "keys", ["user_id"], name: "index_keys_on_user_id", using: :btree
 
+  create_table "merge_request_diffs", force: true do |t|
+    t.string   "state",                               default: "collected", null: false
+    t.text     "st_commits",       limit: 2147483647
+    t.text     "st_diffs",         limit: 2147483647
+    t.integer  "merge_request_id",                                          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "merge_requests", force: true do |t|
-    t.string   "target_branch",                        null: false
-    t.string   "source_branch",                        null: false
-    t.integer  "source_project_id",                    null: false
+    t.string   "target_branch",     null: false
+    t.string   "source_branch",     null: false
+    t.integer  "source_project_id", null: false
     t.integer  "author_id"
     t.integer  "assignee_id"
     t.string   "title"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.text     "st_commits",        limit: 2147483647
-    t.text     "st_diffs",          limit: 2147483647
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "milestone_id"
     t.string   "state"
     t.string   "merge_status"
-    t.integer  "target_project_id",                    null: false
+    t.integer  "target_project_id", null: false
     t.integer  "iid"
     t.text     "description"
   end
@@ -145,6 +162,7 @@ ActiveRecord::Schema.define(version: 20140116231608) do
     t.datetime "updated_at",               null: false
     t.string   "type"
     t.string   "description", default: "", null: false
+    t.string   "avatar"
   end
 
   add_index "namespaces", ["name"], name: "index_namespaces_on_name", using: :btree

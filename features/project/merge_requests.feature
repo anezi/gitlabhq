@@ -29,7 +29,6 @@ Feature: Project Merge Requests
     And I click link "Close"
     Then I should see closed merge request "Bug NS-04"
 
-  @javascript
   Scenario: I submit new unassigned merge request
     Given I click link "New Merge Request"
     And I submit new merge request "Wiki Feature"
@@ -55,18 +54,18 @@ Feature: Project Merge Requests
     Given project "Shop" have "Bug NS-05" open merge request with diffs inside
     And I visit merge request page "Bug NS-05"
     And I click on the first commit in the merge request
-    And I leave a comment like "Line is wrong" on line 185 of the first file
+    And I leave a comment like "Line is wrong" on line 185 of the first file in commit
     And I switch to the merge request's comments tab
-    Then I should see a discussion has started on commit bcf03b5de6c:L185
+    Then I should see a discussion has started on commit b1e6a9dbf1:L185
 
   @javascript
   Scenario: I comment on a commit in merge request
     Given project "Shop" have "Bug NS-05" open merge request with diffs inside
     And I visit merge request page "Bug NS-05"
     And I click on the first commit in the merge request
-    And I leave a comment on the diff page
+    And I leave a comment on the diff page in commit
     And I switch to the merge request's comments tab
-    Then I should see a discussion has started on commit bcf03b5de6c
+    Then I should see a discussion has started on commit b1e6a9dbf1
 
   @javascript
   Scenario: I accept merge request with custom commit message
@@ -77,3 +76,15 @@ Feature: Project Merge Requests
     Then I modify merge commit message
     And I accept this merge request
     Then I should see merged request
+
+  # Markdown
+
+  Scenario: Headers inside the description should have ids generated for them.
+    When I visit merge request page "Bug NS-04"
+    Then Header "Description header" should have correct id and link
+
+  @javascript
+  Scenario: Headers inside comments should not have ids generated for them.
+    Given I visit merge request page "Bug NS-04"
+    And I leave a comment with a header containing "Comment with a header"
+    Then The comment with the header should not have an ID
