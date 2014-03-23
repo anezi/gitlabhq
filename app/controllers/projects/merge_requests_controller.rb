@@ -21,7 +21,7 @@ class Projects::MergeRequestsController < Projects::ApplicationController
     params[:scope] = 'all' if params[:scope].blank?
     params[:state] = 'opened' if params[:state].blank?
 
-    @merge_requests = FilteringService.new.execute(MergeRequest, current_user, params.merge(project_id: @project.id))
+    @merge_requests = MergeRequestsFinder.new.execute(current_user, params.merge(project_id: @project.id))
     @merge_requests = @merge_requests.page(params[:page]).per(20)
 
     @sort = params[:sort].humanize
@@ -60,7 +60,11 @@ class Projects::MergeRequestsController < Projects::ApplicationController
   def new
     @merge_request = MergeRequest.new(params[:merge_request])
     @merge_request.source_project = @project unless @merge_request.source_project
-    @merge_request.target_project = @project unless @merge_request.target_project
+    @merge_request.target_project ||= (@project.forked_from_project || @project)
+    @target_branches = @merge_request.target_project.nil? ? [] : @merge_request.target_project.repository.branch_names
+
+    @merge_request.target_branch ||= @merge_request.target_project.default_branch
+
     @source_project = @merge_request.source_project
     @merge_request
   end
@@ -162,7 +166,7 @@ class Projects::MergeRequestsController < Projects::ApplicationController
   end
 
   def ci_status
-    status = project.gitlab_ci_service.commit_status(merge_request.last_commit.sha)
+    status = @merge_request.source_project.gitlab_ci_service.commit_status(merge_request.last_commit.sha)
     response = {status: status}
 
     render json: response

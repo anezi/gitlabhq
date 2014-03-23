@@ -41,19 +41,11 @@ window.linkify = (str) ->
 window.simpleFormat = (str) ->
   linkify(sanitize(str).replace(/\n/g, '<br />'))
 
-window.startSpinner = ->
-  $('.turbolink-spinner').fadeIn()
-
-window.stopSpinner = ->
-  $('.turbolink-spinner').fadeOut()
-
 window.unbindEvents = ->
   $(document).unbind('scroll')
   $(document).off('scroll')
 
-document.addEventListener("page:fetch", startSpinner)
 document.addEventListener("page:fetch", unbindEvents)
-document.addEventListener("page:change", stopSpinner)
 
 $ ->
   # Click a .one_click_select field, select the contents
@@ -61,11 +53,6 @@ $ ->
 
   $('.remove-row').bind 'ajax:success', ->
     $(this).closest('li').fadeOut()
-
-  # Click a .appear-link, appear-data fadeout
-  $(".appear-link").on 'click', (e) ->
-    $('.appear-data').fadeIn()
-    e.preventDefault()
 
   # Initialize select2 selects
   $('select.select2').select2(width: 'resolve', dropdownAutoWidth: true)
@@ -117,12 +104,8 @@ $ ->
 
 
   # Commit show suppressed diff
-  $(".content").on "click", ".supp_diff_link", ->
+  $(".diff-content").on "click", ".supp_diff_link", ->
     $(@).next('table').show()
-    $(@).remove()
-
-  $(".content").on "click", ".js-details-expand", ->
-    $(@).next('.js-details-contain').removeClass("hide")
     $(@).remove()
 
 (($) ->

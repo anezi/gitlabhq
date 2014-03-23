@@ -91,9 +91,7 @@
 }
 
 // hide mr close link for inline diff comment form
-.merge-request {
-  .file .close-mr-link,
-  .file .reopen-mr-link {
-    display: none;
-  }
+.diff-file .close-mr-link,
+.diff-file .reopen-mr-link {
+  display: none;
 }
