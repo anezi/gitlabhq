@@ -14,7 +14,19 @@ module Gitlab
       end
 
       def positive_labels
-        %w(feature enhancement)
+        %w(enhancement)
+      end
+
+      def default_labels
+        %w(waiting\ feedback)
+      end
+
+      def inverse_labels
+        %w(waiting\ for\ dependance)
+      end
+
+      def gray_labels
+        %w(feature)
       end
 
       def generate(project)
