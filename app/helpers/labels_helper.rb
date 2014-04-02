@@ -21,6 +21,12 @@ module LabelsHelper
       'label-success'
     when *klass.important_labels
       'label-danger'
+    when *klass.default_labels
+      'label-default'
+    when *klass.inverse_labels
+      'label-inverse'
+    when *klass.gray_labels
+      'label-gray'
     else
       'label-info'
     end
